@@ -76,4 +76,56 @@ RSpec.describe Auction do
             expect(auction.potential_revenue).to eq(87)
         end
     end
+
+    describe "#bidders" do
+        before do
+            auction.add_item(item1)
+            auction.add_item(item2)
+            auction.add_item(item3)
+            auction.add_item(item4)
+            auction.add_item(item5)
+        end
+        
+        it "starts with no bidders" do
+            expect(auction.bidders).to eq([])
+        end
+
+        it "can add bidders" do
+            auction.add_bidder(attendee1)
+            auction.add_bidder(attendee2)
+            auction.add_bidder(attendee3)
+
+            expect(auction.bidders).to eq([attendee1, attendee2, attendee3])
+        end
+
+        it "can have a hash with attendee's budget and an array of items that attendee has bid on" do
+            item1.add_bid(attendee2, 20)
+            item1.add_bid(attendee1, 22)
+            item3.add_bid(attendee2, 15)
+            item4.add_bid(attendee3, 50)
+
+            auction.add_bidder(attendee1)
+            auction.add_bidder(attendee2)
+            auction.add_bidder(attendee3)
+
+            bidder_info_hash = {
+                    attendee1 =>
+                      {
+                        :budget => 50,
+                        :items => [item1]
+                      },
+                    attendee2 =>
+                      {
+                        :budget => 75,
+                        :items => [item1, item3]
+                      },
+                    attendee3 =>
+                      {
+                        :budget => 100,
+                        :items => [item4]
+                      }
+                   }
+            expect(auction.bidder_info).to eq(bidder_info_hash)
+        end
+    end
 end

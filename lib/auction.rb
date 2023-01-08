@@ -1,8 +1,9 @@
 class Auction
-    attr_reader :items
+    attr_reader :items, :bidders
 
     def initialize
         @items = []
+        @bidders = []
     end
 
     def add_item(item)
@@ -37,5 +38,22 @@ class Auction
             item_highest_bid << item_bid_max if !item_bid_max.nil?
         end
         item_highest_bid.sum
+    end
+
+    def add_bidder(bidder)
+        @bidders << bidder
+    end
+
+    def bidder_info
+        bidder_info = {}
+        @bidders.each do |bidder|
+            bidder_info[bidder] = { 
+                        :budget => bidder.budget, 
+                        :items => [] 
+                    }
+                    require 'pry'; binding.pry
+        # iterate through @items and add item to items array if name matches bidder name
+    end
+    bidder_info
     end
 end
