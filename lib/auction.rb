@@ -25,4 +25,17 @@ class Auction
         end
         no_bids
     end
+
+    def potential_revenue
+        item_highest_bid = []
+        @items.each do |item|
+            item_bids = []
+            item.bids.each do |item_bid|
+                item_bids << item_bid[-1]
+            end
+            item_bid_max = item_bids.max
+            item_highest_bid << item_bid_max if !item_bid_max.nil?
+        end
+        item_highest_bid.sum
+    end
 end

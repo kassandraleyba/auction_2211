@@ -17,7 +17,4 @@ class Item
         end
         highest_bid.max
     end
-
-
-    
 end
