@@ -47,9 +47,10 @@ class Auction
     def bidder_info
         bidder_info = {}
         @bidders.each do |bidder|
+            items = @items.map { |item| item if item.name == x }
             bidder_info[bidder] = { 
                         :budget => bidder.budget, 
-                        :items => [] 
+                        :items = items
                     }
                     require 'pry'; binding.pry
         # iterate through @items and add item to items array if name matches bidder name
